@@ -110,7 +110,7 @@ const dayOneFunction = () => {
     fuelArray = arr.map(fuel => {
       calc(fuel);
     });
-    dayOne.innerHTML = `Day one answer: ${sumFuel}`;
+    dayOne.innerHTML = `Day 1b answer: ${sumFuel}`;
   };
 
   const calcFuel = num => {

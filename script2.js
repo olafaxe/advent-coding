@@ -3,8 +3,8 @@ const dayTwo = document.querySelector(".day2");
 dayTwoFunction = () => {
   let array = [
     1,
-    0,
-    0,
+    80,
+    51,
     3,
     1,
     1,
@@ -202,40 +202,37 @@ dayTwoFunction = () => {
     let changedArray;
     let startIndex = index;
     let inc = increment;
-    let add1;
-    let add2;
-    let pos1;
-    let pos2;
-    let pos3;
 
     let oldArray = arr.map(num => num);
     let newArray = oldArray.map(num => num);
     let filtArr = newArray.splice(startIndex);
     console.log(filtArr);
     if (filtArr[0] === 1) {
-      pos1 = filtArr[1];
-      pos2 = filtArr[2];
-      pos3 = filtArr[3];
-      console.log(pos1, pos2, pos3);
+      console.log(filtArr[1], filtArr[2], filtArr[3]);
+      changedArray = oldArray.map((num, index) =>
+        index === filtArr[3]
+          ? (num = oldArray[filtArr[1]] + oldArray[filtArr[2]])
+          : num
+      );
     }
-    console.log(newArray);
-    changedArray = arr.map((num, index) => {
-      if (index === pos1) {
-        add1 = num;
-      }
-      if (index === pos2) {
-        add2 = num;
-      }
-      if (index === pos3) {
-        num = add1 + add2;
-      }
-      return num;
-    });
+    if (filtArr[0] === 2) {
+      changedArray = oldArray.map((num, index) =>
+        index === filtArr[3]
+          ? (num = oldArray[filtArr[1]] * oldArray[filtArr[2]])
+          : num
+      );
+    }
+
+    if (filtArr[0] === 99) {
+      dayTwo.innerHTML = `Day 2a answer: ${oldArray[0]}`;
+      return;
+    }
+
     console.log(changedArray);
     startIndex = startIndex + 4;
     inc = inc + 4;
     console.log(startIndex, inc);
-    if (startIndex < 16) {
+    if (startIndex < arr.length) {
       makeArrays(changedArray, startIndex, inc);
     }
   };
