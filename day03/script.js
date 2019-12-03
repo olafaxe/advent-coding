@@ -1,7 +1,7 @@
 let canvas = document.querySelector("canvas");
 
-canvas.width = 1000;
-canvas.height = 1000;
+canvas.width = 5000;
+canvas.height = 5000;
 
 ctx = canvas.getContext("2d");
 
@@ -12,6 +12,8 @@ let p = 10;
 const realArraY = [
   "R" + 990,
   "D" + 362,
+  //add circle where lines cross
+  "L" + 7,
   "L" + 316,
   "U" + 101,
   "R" + 352,
@@ -331,6 +333,8 @@ const realArraY2 = [
   "L" + 334,
   "U" + 93,
   "R" + 644,
+  //add circle where lines cross
+  "U" + 351,
   "U" + 632,
   "L" + 557,
   "D" + 136,
@@ -664,18 +668,55 @@ const array2 = [
 const array3 = ["R" + 8 * 10, "U" + 5 * 10, "L" + 5 * 10, "D" + 3 * 10];
 const array4 = ["U" + 7 * 10, "R" + 6 * 10, "D" + 4 * 10, "L" + 4 * 10];
 
+const createNewCircle = (x, y, color, r) => {
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, Math.PI * 2);
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = color;
+  ctx.stroke();
+};
+
+let green = [];
+let red = [];
 let startPoint = [xzero, yzero];
 ctx.beginPath();
-ctx.arc(xzero, yzero, 10, 0, Math.PI * 2);
-
+// ctx.arc(xzero, yzero, 10, 0, Math.PI * 2);
+createNewCircle(xzero, yzero, "#1bff1b", 10);
+ctx.lineWidth = 1;
 ctx.strokeStyle = "#1bff1b";
 ctx.stroke();
 
-const getCoordinates = (arr, color) => {
+let coord;
+let startKor1 = [];
+let endKor1 = [];
+let startKor2 = [];
+let endKor2 = [];
+
+function intersects(a, b, c, d, p, q, r, s) {
+  var det, gamma, lambda;
+  det = (c - a) * (s - q) - (r - p) * (d - b);
+  if (det === 0) {
+    return false;
+  } else {
+    lambda = ((s - q) * (r - a) + (p - r) * (s - b)) / det;
+    gamma = ((b - d) * (r - a) + (c - a) * (s - b)) / det;
+    // det = värdet det tar för linjerna att korsas?
+    console.log(det);
+    return 0 < lambda && lambda < 1 && 0 < gamma && gamma < 1;
+  }
+}
+
+// intersects(6, 7, 6, 3, 8, 5, 3, 5);
+
+const getCoordinates = (arr, color, cordArr, start, end) => {
   let startPoint = [xzero, yzero];
 
-  let coordArray = arr.map((cord, index) => {
-    console.log(startPoint);
+  arr.map((cord, index) => {
+    if (index > 0) {
+    }
+    start.push({ x: startPoint[0], y: startPoint[1] });
+
+    // console.log(startPoint);
     ctx.beginPath();
     ctx.moveTo(startPoint[0], startPoint[1]);
     let x;
@@ -708,34 +749,49 @@ const getCoordinates = (arr, color) => {
       }
       // console.log("y: " + y);
     }
-    // console.log(index);
-    // console.log(cord[0]);
 
-    // console.log(number);
-    console.log(startPoint[0], startPoint[1]);
+    coord = { x: startPoint[0], y: startPoint[1] };
+
+    cordArr.push(coord);
     ctx.lineTo(startPoint[0], startPoint[1]);
+    ctx.lineWidth = 1;
     ctx.strokeStyle = color;
     ctx.stroke();
+    createNewCircle(coord.x, coord.y, color, 5);
+    // console.log("endpoint line: " + startPoint[0], startPoint[1]);
+    end.push({ x: startPoint[0], y: startPoint[1] });
   });
-  // console.log(coordArray);
 };
 
-// getCoordinates(array1, "green");
-// getCoordinates(array2, "blue");
-// getCoordinates(array3, "green");
-// getCoordinates(array4, "blue");
-getCoordinates(realArraY, "#1bff1b");
-getCoordinates(realArraY2, "#ff2e2e");
+// getCoordinates(array1, "#1bff1b", green, startKor1, endKor1);
+// getCoordinates(array2, "#ff2e2e", red, startKor2, endKor2);
+// getCoordinates(array3, "#1bff1b", green, startKor1, endKor1);
+// getCoordinates(array4, "#ff2e2e", red, startKor2, endKor2);
+getCoordinates(realArraY, "#1bff1b", green, startKor1, endKor1);
+getCoordinates(realArraY2, "#ff2e2e", red, startKor2, endKor2);
+
+const calculatePtpDistance = (arr1, arr2) => {
+  let point2pointD = [];
+  for (let i = 0; i < arr1.length; i++) {
+    let xD = arr2[i].x - arr1[i].x;
+    let yD = arr1[i].y - arr2[i].y;
+    point2pointD.push({ x: xD, y: yD });
+  }
+  console.log(point2pointD);
+};
+
+calculatePtpDistance(startKor1, endKor1);
+calculatePtpDistance(startKor2, endKor2);
 
 function drawBoard() {
   for (var x = 0; x <= canvas.width; x += 10) {
-    ctx.moveTo(1 + x + p, p);
-    ctx.lineTo(1 + x + p, canvas.height + p);
+    ctx.moveTo(0.5 + x + p, p);
+    ctx.lineTo(0.5 + x + p, canvas.height + p);
   }
 
   for (var x = 0; x <= canvas.height; x += 10) {
-    ctx.moveTo(p, 1 + x + p);
-    ctx.lineTo(canvas.width + p, 1 + x + p);
+    ctx.moveTo(p, 0.5 + x + p);
+    ctx.lineTo(canvas.width + p, 0.5 + x + p);
   }
   ctx.strokeStyle = "#ffffff25";
   ctx.stroke();
@@ -743,4 +799,4 @@ function drawBoard() {
 
 drawBoard();
 
-console.log(canvas);
+// console.log(canvas);
