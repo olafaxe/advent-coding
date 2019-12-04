@@ -1,0 +1,19 @@
+body {
+  margin: 0;
+  background: black;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.title {
+  color: #00ff22;
+}
+
+.password {
+  color: #68fa7c;
+}
