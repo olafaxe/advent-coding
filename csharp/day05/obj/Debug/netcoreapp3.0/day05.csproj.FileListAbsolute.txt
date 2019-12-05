@@ -1,0 +1,11 @@
+c:\Users\olafa\Desktop\Skola\Projekt\adventofcode\advent\csharp\day05\bin\Debug\netcoreapp3.0\day05.exe
+C:\Users\olafa\Desktop\Skola\Projekt\adventofcode\advent\csharp\day05\bin\Debug\netcoreapp3.0\day05.deps.json
+C:\Users\olafa\Desktop\Skola\Projekt\adventofcode\advent\csharp\day05\bin\Debug\netcoreapp3.0\day05.runtimeconfig.json
+C:\Users\olafa\Desktop\Skola\Projekt\adventofcode\advent\csharp\day05\bin\Debug\netcoreapp3.0\day05.runtimeconfig.dev.json
+c:\Users\olafa\Desktop\Skola\Projekt\adventofcode\advent\csharp\day05\bin\Debug\netcoreapp3.0\day05.dll
+c:\Users\olafa\Desktop\Skola\Projekt\adventofcode\advent\csharp\day05\bin\Debug\netcoreapp3.0\day05.pdb
+c:\Users\olafa\Desktop\Skola\Projekt\adventofcode\advent\csharp\day05\obj\Debug\netcoreapp3.0\day05.csprojAssemblyReference.cache
+c:\Users\olafa\Desktop\Skola\Projekt\adventofcode\advent\csharp\day05\obj\Debug\netcoreapp3.0\day05.AssemblyInfoInputs.cache
+c:\Users\olafa\Desktop\Skola\Projekt\adventofcode\advent\csharp\day05\obj\Debug\netcoreapp3.0\day05.AssemblyInfo.cs
+c:\Users\olafa\Desktop\Skola\Projekt\adventofcode\advent\csharp\day05\obj\Debug\netcoreapp3.0\day05.dll
+c:\Users\olafa\Desktop\Skola\Projekt\adventofcode\advent\csharp\day05\obj\Debug\netcoreapp3.0\day05.pdb
