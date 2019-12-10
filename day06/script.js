@@ -1,4 +1,3 @@
-console.log("hello world");
 let array = [
   "D5Q)KRQ",
   "SDF)J68",
@@ -1266,7 +1265,7 @@ let testArray = [
   "KKK)LLL"
 ];
 
-function getOrbits(orb, arr) {
+const getOrbits = (orb, arr) => {
   let orbits = 0;
   arr.map(item => {
     if (item.Orb === orb) {
@@ -1274,9 +1273,9 @@ function getOrbits(orb, arr) {
     }
   });
   return orbits;
-}
+};
 
-function getPath(orb, arr) {
+const getPath = (orb, arr) => {
   let path = [];
   arr.map(item => {
     if (item.Orb === orb) {
@@ -1285,7 +1284,18 @@ function getPath(orb, arr) {
     }
   });
   return path;
-}
+};
+
+const getDistance = (from, to, arr) => {
+  let fromPoint = arr.filter(item => item.Orb === from);
+  let toPoint = arr.filter(item => item.Orb === to);
+  let fromArray = fromPoint[0].Map;
+  let toArray = toPoint[0].Map;
+  let duplicates = fromArray.filter(item => toArray.includes(item));
+  let fromDistance = fromArray.filter(item => !duplicates.includes(item));
+  let toDistance = toArray.filter(item => !duplicates.includes(item));
+  return fromDistance.length - 1 + (toDistance.length - 1);
+};
 
 const fixArray = arr => {
   let newArr = [];
@@ -1322,12 +1332,9 @@ modArr.forEach(item => {
 let sum = 0;
 modArr.map(item => (sum += item.Orbits));
 
-let youPoint = modArr.filter(item => item.Orb === "YOU");
-let santaPoint = modArr.filter(item => item.Orb === "SAN");
-let youArray = youPoint[0].Map;
-let santaArray = santaPoint[0].Map;
-let duplicates = youArray.filter(item => santaArray.includes(item));
-let youDistance = youArray.filter(item => !duplicates.includes(item));
-let santaDistance = santaArray.filter(item => !duplicates.includes(item));
-let distance = youDistance.length - 1 + (santaDistance.length - 1);
-console.log(distance);
+console.log("Number of orbits: ", sum);
+console.log(
+  "Distance between You and Santa: " +
+    getDistance("YOU", "SAN", modArr) +
+    " orbital transfers"
+);
