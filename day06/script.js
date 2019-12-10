@@ -1276,6 +1276,17 @@ function getOrbits(orb, arr) {
   return orbits;
 }
 
+function getPath(orb, arr) {
+  let path = [];
+  arr.map(item => {
+    if (item.Orb === orb) {
+      path.push(item.Orb);
+      path.push(...getPath(item.Body, modArr));
+    }
+  });
+  return path;
+}
+
 const fixArray = arr => {
   let newArr = [];
   for (let i = 0; i < arr.length; i++) {
@@ -1285,7 +1296,8 @@ const fixArray = arr => {
       Body: body,
       BV: 1,
       Orb: orb,
-      Orbits: 0
+      Orbits: 0,
+      Map: []
     };
     if (obj.Body === "COM") {
       obj.BV = 0;
@@ -1303,7 +1315,19 @@ modArr.forEach(item => {
   item.Orbits = getOrbits(item.Orb, modArr);
 });
 
+modArr.forEach(item => {
+  item.Map = getPath(item.Orb, modArr);
+});
+
 let sum = 0;
 modArr.map(item => (sum += item.Orbits));
 
-console.log(sum);
+let youPoint = modArr.filter(item => item.Orb === "YOU");
+let santaPoint = modArr.filter(item => item.Orb === "SAN");
+let youArray = youPoint[0].Map;
+let santaArray = santaPoint[0].Map;
+let duplicates = youArray.filter(item => santaArray.includes(item));
+let youDistance = youArray.filter(item => !duplicates.includes(item));
+let santaDistance = santaArray.filter(item => !duplicates.includes(item));
+let distance = youDistance.length - 1 + (santaDistance.length - 1);
+console.log(distance);
